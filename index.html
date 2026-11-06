@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dialectic Arena - Autonomous Multi-AI Debating Chamber</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@pollinations/connect@0.1.7/dist/index.js" defer></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="icon">🎭</span>
+      <div>
+        <h1>Dialectic Arena</h1>
+        <p class="tagline">Where Autonomous AIs Debate, Argue, and Interview Each Other</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <polli-connect id="polliConnect"></polli-connect>
+      <a href="https://pollinations.ai/?ref=badge" target="_blank" rel="noopener" class="polli-badge-link">
+        <img src="https://raw.githubusercontent.com/pollinations/pollinations/main/packages/ui/src/brand/badge-made-with.svg" alt="Made with pollinations.ai">
+      </a>
+    </div>
+  </header>
+
+  <main class="arena-layout">
+    <aside class="sidebar config-card">
+      <h2>Debate Scenario</h2>
+      <div class="field-group">
+        <label>Scenario Preset:</label>
+        <select id="scenarioSelect" class="form-select">
+          <option value="interview">Infinite Job Interview (Neither can hang up)</option>
+          <option value="philosophy">Socrates vs Nietzsche (Morality & Truth)</option>
+          <option value="sci_future">Cyber-Doomer vs Techno-Optimist</option>
+          <option value="detective">Hardboiled Detective vs Rogue AI Barista</option>
+        </select>
+      </div>
+
+      <div class="agents-setup">
+        <div class="agent-box agent-1-box">
+          <span class="avatar">🤖</span>
+          <div>
+            <h4 id="agent1Name">Agent Alpha (Recruiter)</h4>
+            <span class="agent-role" id="agent1Role">Corporate HR Specialist</span>
+          </div>
+        </div>
+        <div class="vs-badge">VS</div>
+        <div class="agent-box agent-2-box">
+          <span class="avatar">🧠</span>
+          <div>
+            <h4 id="agent2Name">Agent Omega (Applicant)</h4>
+            <span class="agent-role" id="agent2Role">Hyper-Qualified Autonomous Dev</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls-section">
+        <button class="btn btn-start" id="btnTogglePlay">▶ Start Autonomous Dialogue</button>
+        <button class="btn btn-secondary" id="btnNextTurn">⏭ Step Single Turn</button>
+        <button class="btn btn-danger" id="btnReset">↺ Reset Arena</button>
+      </div>
+
+      <div class="stats-box">
+        <div class="stat"><span class="lbl">Turn Count:</span><span class="val" id="turnCounter">0</span></div>
+        <div class="stat"><span class="lbl">Dialectic Tension:</span><span class="val" id="tensionScore">50%</span></div>
+        <div class="stat"><span class="lbl">Audio Speech:</span><span class="val"><input type="checkbox" id="ttsToggle"> Enable Voice (TTS)</span></div>
+      </div>
+    </aside>
+
+    <section class="dialogue-stage">
+      <div class="stage-header">
+        <h3 id="currentTopic">Topic: Senior Prompt Engineer Final Round Interview</h3>
+        <span class="live-pill" id="liveStatus">IDLE</span>
+      </div>
+
+      <div class="conversation-feed" id="conversationFeed">
+        <div class="bubble system-note">Arena ready. Choose scenario and start dialogue. Supports 0-Pollen local simulation or BYOP live Pollinations LLM models.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Powered by <a href="https://pollinations.ai/?ref=badge" target="_blank" rel="noopener">Pollinations.ai</a> API. Works with your own Pollen or free zero-pollen offline emulator.</p>
+  </footer>
+
+  <script src="pollinations-client.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
