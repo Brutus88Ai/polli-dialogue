@@ -36,18 +36,21 @@ Keep your reply punchy, witty, under 3 sentences, stay completely in character, 
           'Authorization': `Bearer ${key}`
         },
         body: JSON.stringify({
-          model: 'openai',
+          model: 'openai/gpt-5.4-nano',
           messages: messages,
           max_tokens: 120
         })
       });
 
-      if (!res.ok) throw new Error('API request failed');
+      if (!res.ok) {
+        const err = await res.text();
+        throw new Error(`Pollinations API Error (${res.status}): ${err}`);
+      }
       const data = await res.json();
       return data.choices[0].message.content.trim();
     } catch (e) {
-      console.warn('Fallback to offline dialectic:', e);
-      return this.simulateOfflineTurn(speaker, opponent, history, scenario);
+      console.warn('API error:', e);
+      throw e;
     }
   }
 

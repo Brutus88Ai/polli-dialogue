@@ -70,7 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
     liveStatus.textContent = `${speaker.name} THINKING...`;
     liveStatus.classList.add('active');
 
-    const response = await client.generateTurn(speaker, opponent, history, sc);
+    let response = "";
+    try {
+      response = await client.generateTurn(speaker, opponent, history, sc);
+    } catch (err) {
+      response = `[Dialogue Error]: ${err.message}`;
+    }
 
     turn++;
     turnCounter.textContent = turn;
@@ -134,6 +139,19 @@ document.addEventListener('DOMContentLoaded', () => {
     updateScenarioUI();
     btnReset.click();
   });
+
+  const polliConnect = document.getElementById('polliConnect');
+  if (polliConnect) {
+    polliConnect.addEventListener('change', () => {
+      if (polliConnect.apiKey) {
+        localStorage.setItem('polli_key', polliConnect.apiKey);
+        liveStatus.textContent = 'BYOP CONNECTED';
+      } else {
+        localStorage.removeItem('polli_key');
+        liveStatus.textContent = 'OFFLINE MODE';
+      }
+    });
+  }
 
   updateScenarioUI();
 });
