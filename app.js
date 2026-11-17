@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let playInterval = null;
   let history = [];
   let turn = 0;
+  let busy = false;
 
   const scenarios = {
     interview: {
@@ -62,6 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function stepTurn() {
+    if (busy) return; // autoplay waits for the previous reply
+    busy = true;
     const sc = scenarios[scenarioSelect.value];
     const isAgent1 = (turn % 2 === 0);
     const speaker = isAgent1 ? sc.agent1 : sc.agent2;
@@ -92,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     speakText(response);
     liveStatus.textContent = 'READY';
     liveStatus.classList.remove('active');
+    busy = false;
   }
 
   btnTogglePlay.addEventListener('click', () => {
