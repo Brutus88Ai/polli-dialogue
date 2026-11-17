@@ -36,7 +36,7 @@ Keep your reply punchy, witty, under 3 sentences, stay completely in character, 
           'Authorization': `Bearer ${key}`
         },
         body: JSON.stringify({
-          model: 'openai/gpt-5.4-nano',
+          model: speaker === scenario.agent2 ? 'deepseek/deepseek-v4.1-flash' : 'openai/gpt-5.4-nano',
           messages: messages,
           max_tokens: 120
         })
